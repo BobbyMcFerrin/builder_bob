@@ -25,6 +25,7 @@ ARG_CONSOLIDATE = 'consolidate'
 ARG_OUTPUT = 'output'
 ARG_PAGE_RANGE = 'pagerange'
 ARG_THREADS = 'threads'
+ARG_FILENAME = 'filename'
 
 #################### Bob Tool Program ###################
 
@@ -62,6 +63,8 @@ class Bob_Tool_Program:
                                 flag=True, help='Output')
         self._args.add_argument(ARG_THREADS, required=False,
                                 flag=False, help='Number of threads')
+        self._args.add_argument(ARG_FILENAME, required=False,
+                                flag=False, help='Will work only on specific file')
 
     ############### Set General Variables #########
 
@@ -75,6 +78,9 @@ class Bob_Tool_Program:
                                  self._prog_args[ARG_PAGE_RANGE].split(",")]
         if self._prog_args[ARG_THREADS] is not None:
             GlobalVars.prop_num_threads = int(self._prog_args[ARG_THREADS])
+        self.__file_name = None
+        if self._prog_args[ARG_FILENAME] is not None:
+            self.__file_name = self._prog_args[ARG_FILENAME]
 
     ############ Conduct Create Raw ##########
 
@@ -84,7 +90,8 @@ class Bob_Tool_Program:
         :return:
         """
         logging.debug('Conducting Create Raw Data ..')
-        raw_data = Bob_Raw_Data(self.__page_range)
+        raw_data = Bob_Raw_Data(self.__page_range,
+                                self.__file_name)
         raw_data.discovery()
 
     ############ Conduct Consolidate ##########
@@ -95,7 +102,7 @@ class Bob_Tool_Program:
         :return:
         """
         logging.debug('Conducting Consolidate ..')
-        consolidate = Bob_Consolidate_Object()
+        consolidate = Bob_Consolidate_Object(self.__file_name)
         consolidate.consolidate()
 
     ############ Conduct Output ##########
@@ -106,7 +113,7 @@ class Bob_Tool_Program:
         :return:
         """
         logging.debug('Conducting Output ..')
-        output = Bob_Output_Object()
+        output = Bob_Output_Object(self.__file_name)
         output.main_loop()
 
 

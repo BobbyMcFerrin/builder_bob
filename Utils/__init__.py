@@ -19,6 +19,7 @@ from Utils.Bob_UtilsError import UtilsError
 # Configures Logging
 
 import logging
+from dotenv import load_dotenv
 
 # Logger : Minimum Logging For Python Libraries #
 
@@ -66,6 +67,7 @@ class BobGlobalVariables:
         """
         Inits
         """
+        load_dotenv()
         if 'Bob' not in os.environ:
             raise Exception('Bob not defined inside os.environ')
         self.__user_home = str(Path.home()) + os.sep
@@ -78,6 +80,9 @@ class BobGlobalVariables:
         self.__file_documents_temp = os.path.join(self.__tool_home, 'Temp') + os.sep
         self.__file_documents_consolidated = os.path.join(self.__tool_home, 'Consolidated') + os.sep
         self.__file_documents_output = os.path.join(self.__tool_home, 'Output') + os.sep
+        self.__openai_api_key = os.getenv('OPENAI_API_KEY')
+        if self.__openai_api_key is None:
+            UtilsError.quit_with_error('OPENAI_API_KEY not defined in .env')
         self.__prop_num_threads = 1
 
     ############### Properties #############
@@ -129,7 +134,14 @@ class BobGlobalVariables:
         """
         Property Number of Threads
         """
-        self.__prop_num_threads = value = value
+        self.__prop_num_threads = value
+
+    @property
+    def prop_openai_api_key(self):
+        """
+        Property Number of Threads
+        """
+        return
 
 ############### Main Block ###########3
 

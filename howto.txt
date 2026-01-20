@@ -1,0 +1,18 @@
+Clone project to your local.
+conduct pip install for requirements file
+edit .env to define your openai_api key.
+Create the following directory:
+
+<user_home>/work/Data/Bob
+Then underneath all the following directories:
+Consolidated
+Output
+Raw
+Temp
+
+All documents that tool is working on are of '.pdf' type and under
+Documents/ directory.
+
+
+
+
