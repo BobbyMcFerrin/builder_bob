@@ -13,6 +13,19 @@ Temp
 All documents that tool is working on are of '.pdf' type and under
 Documents/ directory.
 
+Running:
 
+(First Stage):
+python ./bob_tool.py --createraw --filename <file_name>
+(Second Stage)
+python ./bob_tool.py --consolidate --filename <file_name>
+(Third Stage) : Output
+python ./bob_tool.py --output --filename <file_name>
+
+Notes:
+
+Use --pagerange via First Stage to limit running on certain pages (E.G : 4,10 -> will run only on pages between 4 and 10)
+Use --filename to limit the run on specific filename (without its extension)
+Use --threads <threads_number> to use parallel threading (Recommanded value: 30)
 
 
